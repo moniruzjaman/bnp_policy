@@ -83,3 +83,57 @@
     POLICY_BRIEF.sections.map(function (s) { return `<div class="bbrf-s${s.final ? " bbrf-fin" : ""}"><h3>${s.h}</h3><p>${s.p}</p></div>`; }).join("") +
     `<div class="bbrf-cta"><button class="bbtn" id="bmode-open2">▶ Open Briefing Mode</button>` +
     `<a class="bbtn bbtn-out" href="BNP_Profile_Moniruzjaman.pdf" target="_blank" rel="noopener">Profile & Credentials (PDF)</a></div></div>`));
+
+  // ---- briefing mode: guided ministerial deck ----
+  var SLIDES = [
+    { k: "The Challenge", h: OPPORTUNITY.title, b: OPPORTUNITY.paras[0] },
+    { k: "The Vision", h: "One integrated agricultural ecosystem", b: OPPORTUNITY.paras[2] },
+    { k: "The Pillars", h: "Seven connected pillars", b: POLICY_PILLARS.map(function (x) { return `${x.icon} <b>${x.title}</b> — ${x.idea}`; }).join("<br>") },
+    { k: "The System", h: "Farmer → Data → Services → Markets", b: SYSTEM_FLOW.join(" → ") },
+    { k: "The Evidence", h: "Already built and live", b: `<b>13</b> live applications · <b>11</b> video demonstrations · <b>60</b> slides · <b>14</b> policy documents` },
+    { k: "The Roadmap", h: "Pilot → Scale → National", b: ROADMAP.map(function (r) { return `<b>${r.phase}</b> (${r.when}): ${r.items[0]}`; }).join("<br>") },
+    { k: "The Decision", h: fin.h, b: fin.p }
+  ];
+  var bm = el("div", "bmode"); bm.id = "bmode";
+  bm.innerHTML = `<div class="bmode-bar"><span id="bm-k"></span><span id="bm-n"></span><button id="bm-x">✕ Close</button></div>` +
+    `<div class="bmode-prog"><i id="bm-p"></i></div>` +
+    `<div class="bmode-body"><div class="brow">MINISTERIAL BRIEFING</div><h2 id="bm-h"></h2><div id="bm-b"></div></div>` +
+    `<div class="bmode-nav"><button id="bm-prev">← Previous</button><div class="bmode-dots" id="bm-dots"></div><button id="bm-next">Next →</button></div>`;
+  document.body.appendChild(bm);
+  var dots = document.getElementById("bm-dots");
+  dots.innerHTML = SLIDES.map(function (s, i) { return `<span data-i="${i}"></span>`; }).join("");
+  var bi = 0;
+  function bmRender() {
+    var s = SLIDES[bi];
+    document.getElementById("bm-k").textContent = s.k;
+    document.getElementById("bm-n").textContent = (bi + 1) + " / " + SLIDES.length;
+    document.getElementById("bm-h").textContent = s.h;
+    document.getElementById("bm-b").innerHTML = s.b;
+    document.getElementById("bm-p").style.width = ((bi + 1) / SLIDES.length * 100) + "%";
+    document.getElementById("bm-prev").disabled = bi === 0;
+    document.getElementById("bm-next").disabled = bi === SLIDES.length - 1;
+    for (var i = 0; i < dots.children.length; i++) dots.children[i].className = i === bi ? "on" : "";
+  }
+  function bmOpen() { bi = 0; bmRender(); bm.classList.add("on"); document.body.style.overflow = "hidden"; }
+  function bmClose() { bm.classList.remove("on"); document.body.style.overflow = ""; }
+  document.getElementById("bmode-open").onclick = bmOpen;
+  document.getElementById("bmode-open2").onclick = bmOpen;
+  document.getElementById("bm-x").onclick = bmClose;
+  document.getElementById("bm-prev").onclick = function () { if (bi > 0) { bi--; bmRender(); } };
+  document.getElementById("bm-next").onclick = function () { if (bi < SLIDES.length - 1) { bi++; bmRender(); } };
+  dots.onclick = function (e) { var d = e.target.getAttribute("data-i"); if (d != null) { bi = parseInt(d, 10); bmRender(); } };
+  document.addEventListener("keydown", function (e) {
+    if (!bm.classList.contains("on")) return;
+    if (e.key === "Escape") bmClose();
+    if (e.key === "ArrowRight" && bi < SLIDES.length - 1) { bi++; bmRender(); }
+    if (e.key === "ArrowLeft" && bi > 0) { bi--; bmRender(); }
+  });
+  var tx = null;
+  bm.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; }, { passive: true });
+  bm.addEventListener("touchend", function (e) {
+    if (tx === null) return;
+    var dx = e.changedTouches[0].clientX - tx;
+    if (dx < -50 && bi < SLIDES.length - 1) { bi++; bmRender(); }
+    if (dx > 50 && bi > 0) { bi--; bmRender(); }
+    tx = null;
+  }, { passive: true });
