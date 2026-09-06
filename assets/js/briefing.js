@@ -36,3 +36,35 @@
     `<div class="bwrap" id="vision"><div class="brow">${OPPORTUNITY.eyebrow}</div><h2>${OPPORTUNITY.title}</h2>` +
     OPPORTUNITY.paras.map(function (x) { return `<p>${x}</p>`; }).join("") +
     `<blockquote>${OPPORTUNITY.quote}</blockquote></div>`));
+
+  // ---- pillars as policy cards ----
+  top.appendChild(el("section", "bpil",
+    `<div class="bwrap" id="pillars"><div class="brow">THE TRANSFORMATION PILLARS</div><h2>Seven connected pillars — one system</h2><div class="bpil-grid">` +
+    POLICY_PILLARS.map(function (x) {
+      return `<article class="bpil-c" id="${x.id}"><div class="bpil-ic">${x.icon}</div><h3>${x.title} <span class="bpil-bn">${x.bn}</span></h3><p class="bpil-idea">${x.idea}</p><dl>` +
+        `<dt>The problem</dt><dd>${x.problem}</dd><dt>The proposal</dt><dd>${x.proposition}</dd>` +
+        `<dt>How it works</dt><dd class="bchips">${x.mechanism.map(function (m) { return `<span>${m}</span>`; }).join("")}</dd>` +
+        `<dt>Expected benefit</dt><dd>${x.outcome}</dd><dt>Decision</dt><dd class="bpil-dec">${x.decision}</dd></dl>` +
+        `<div class="bpil-ev">${x.evidence.map(function (e) { return `<a href="${e.u}"${ext(e.u)}>${e.t}</a>`; }).join("")}</div>` +
+        `<a class="bpil-go" href="${x.evidence[0].u}"${ext(x.evidence[0].u)}>Explore →</a></article>`;
+    }).join("") + `</div></div>`));
+
+  // ---- national transformation map ----
+  top.appendChild(el("section", "bmap",
+    `<div class="bwrap" id="map"><div class="brow">THE NATIONAL TRANSFORMATION MAP</div><h2>Not separate applications — one connected system</h2><div class="bmap-d">` +
+    `<div class="bmap-top">${MAP.top}</div><div class="bmap-conn"></div>` +
+    `<div class="bmap-row">${MAP.inputs.map(function (i) { return `<div class="bmap-n">${i}</div>`; }).join("")}</div><div class="bmap-conn"></div>` +
+    `<div class="bmap-mid">${MAP.mid}</div><div class="bmap-conn"></div>` +
+    `<div class="bmap-row bmap-out">${MAP.outcomes.map(function (o) { return `<span>${o}</span>`; }).join("")}</div><div class="bmap-conn"></div>` +
+    `<div class="bmap-base">${MAP.base}</div></div></div>`));
+
+  // ---- system flow ----
+  top.appendChild(el("section", "bsys",
+    `<div class="bwrap" id="system"><div class="brow">HOW THE SYSTEM WORKS</div><h2>Farmer → Data → Services → Markets</h2><div class="bsys-f">` +
+    SYSTEM_FLOW.map(function (s, i) { return (i ? `<div class="bsys-a">→</div>` : "") + `<div class="bsys-s"><b>STEP ${i + 1}</b><span>${s}</span></div>`; }).join("") +
+    `</div></div>`));
+
+  // ---- evidence heading (existing tabbed library follows) ----
+  top.appendChild(el("div", "bevh",
+    `<div class="bwrap" id="evidence"><div class="brow">WHAT IS ALREADY BUILT — EVIDENCE & DEMONSTRATIONS</div><h2>See the system in action</h2>` +
+    `<p>Live applications, video demonstrations, slide decks and policy documents — the evidence supporting this transformation.</p></div>`));
