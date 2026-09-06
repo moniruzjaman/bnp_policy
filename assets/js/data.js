@@ -39,6 +39,13 @@ const APPS=[
   {t:"Krishi AI Game Platform",s:"Gamified agri-learning — farmers, students & extension workers · Bengali interface",url:"https://game.krishiai.live/",icon:"🎮",tag:"tag-bd",col:"#200A05"},
   {t:"Krishi AI Web Platform",s:"Full platform — disease detection, soil analysis, yield forecast, market prices, Bengali chatbot",url:"https://web.krishiai.live/",icon:"🌐",tag:"tag-ag",col:"#1A1400"},
   {t:"E-Bill Dashboard (Embedded)",s:"Blockchain fertilizer tracking — farmer/dealer login, subsidy verification, Hyperledger Fabric",url:"#sec-ebill",icon:"💳",tag:"tag-eb",col:"#001020",internal:true},
+  {t:"KrishiAI Main Portal",s:"KrishiAI platform hub — AI-powered agriculture services for Bangladeshi farmers",url:"https://krishiai.live/",icon:"🤖",tag:"tag-ag",col:"#0A2018"},
+  {t:"Udbhid Goyenda (Plant Detective)",s:"উদ্ভিদ গোয়েন্দা — crop disease identification, treatment advice & agri knowledge",url:"https://cabi.krishiai.live/",icon:"🦠",tag:"tag-ipm",col:"#142008"},
+  {t:"Tree Plantation Tracker",s:"বৃক্ষরোপণ ট্র্যাকার — DAE 25-crore tree plantation drive · offline data, auto GPS, Drive backup",url:"https://plantation.krishiai.live/",icon:"🌳",tag:"tag-ag",col:"#082010"},
+  {t:"Kurigram Nursery Evaluation 2026",s:"কুড়িগ্রাম জেলা নার্সারী মূল্যায়ন পূর্ণাঙ্গ প্রতিবেদন ২০২৬ — Upazila Scorecard v2.0",url:"https://kurigram-nursery-2026.vercel.app/",icon:"📊",tag:"tag-bd",col:"#101828"},
+  {t:"GAP Producer Register",s:"Bangladesh GAP producer register & logbook — DAE traceability, OCR intake, GPS capture",url:"https://producer-register.vercel.app/",icon:"📒",tag:"tag-ag",col:"#0A1820"},
+  {t:"Kurigram Nursery Registry",s:"137 nurseries · 9 upazilas · 11.79 lakh plants — GPS, mobile & inventory registry",url:"https://kurigram-nursery-registry.vercel.app/",icon:"🗂️",tag:"tag-bd",col:"#181020"},
+  {t:"Policy Resources Drive",s:"Google Drive folder — BNP policy documents & multimedia resources",url:"https://drive.google.com/drive/folders/19H6X9JbmS83XhyJVHdxn_pvfwTH64_QR",icon:"📁",tag:"tag-bnp",col:"#1A1005"},
 ];
 
 // ─ TAG LABELS ──────────────────────────────────────────────────────
