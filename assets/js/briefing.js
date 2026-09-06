@@ -137,3 +137,20 @@
     if (dx > 50 && bi > 0) { bi--; bmRender(); }
     tx = null;
   }, { passive: true });
+
+  // ---- scrollspy + hash routing ----
+  var spy = ["top", "vision", "pillars", "system", "evidence", "roadmap", "brief"];
+  var obs = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var links = document.querySelectorAll(".bnav a[data-spy]");
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute("data-spy") === e.target.id) links[i].classList.add("act");
+        else links[i].classList.remove("act");
+      }
+      history.replaceState(null, "", "#" + e.target.id);
+    });
+  }, { rootMargin: "-35% 0px -55% 0px" });
+  spy.forEach(function (id) { var n = document.getElementById(id); if (n) obs.observe(n); });
+  if (location.hash) setTimeout(function () { var n = document.querySelector(location.hash); if (n) n.scrollIntoView(); }, 150);
+})();
