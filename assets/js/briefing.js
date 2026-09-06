@@ -68,3 +68,18 @@
   top.appendChild(el("div", "bevh",
     `<div class="bwrap" id="evidence"><div class="brow">WHAT IS ALREADY BUILT — EVIDENCE & DEMONSTRATIONS</div><h2>See the system in action</h2>` +
     `<p>Live applications, video demonstrations, slide decks and policy documents — the evidence supporting this transformation.</p></div>`));
+
+  // ---- roadmap + executive brief (injected before footer) ----
+  var bot = el("div"); bot.id = "brief-bottom";
+  var foot = document.querySelector("footer") || document.querySelector(".foot");
+  if (foot) foot.before(bot); else document.body.appendChild(bot);
+  bot.appendChild(el("section", "brm",
+    `<div class="bwrap" id="roadmap"><div class="brow">IMPLEMENTATION ROADMAP</div><h2>Pilot → Scale → National integration</h2><div class="brm-g">` +
+    ROADMAP.map(function (r) { return `<div class="brm-c"><h3>${r.phase}</h3><span class="brm-w">${r.when}</span><ul>${r.items.map(function (i) { return `<li>${i}</li>`; }).join("")}</ul></div>`; }).join("") +
+    `</div></div>`));
+  var fin = POLICY_BRIEF.sections.filter(function (s) { return s.final; })[0] || POLICY_BRIEF.sections[POLICY_BRIEF.sections.length - 1];
+  bot.appendChild(el("section", "bbrf",
+    `<div class="bwrap bwrap-n" id="brief"><div class="brow">EXECUTIVE DECISION</div><h2>${POLICY_BRIEF.title}</h2>` +
+    POLICY_BRIEF.sections.map(function (s) { return `<div class="bbrf-s${s.final ? " bbrf-fin" : ""}"><h3>${s.h}</h3><p>${s.p}</p></div>`; }).join("") +
+    `<div class="bbrf-cta"><button class="bbtn" id="bmode-open2">▶ Open Briefing Mode</button>` +
+    `<a class="bbtn bbtn-out" href="BNP_Profile_Moniruzjaman.pdf" target="_blank" rel="noopener">Profile & Credentials (PDF)</a></div></div>`));
